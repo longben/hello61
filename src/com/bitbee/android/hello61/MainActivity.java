@@ -23,7 +23,7 @@ import com.bitbee.android.util.JSONParser;
 public class MainActivity extends ListActivity {
 
 	// url to make request
-	private static String url = "http://www.wczhs.com/wczhs/json_data.json";
+	private static String url = "http://www.wczhs.com/admin/wczhs/course_memberships/json_data.json?u=944";
 	
 	// JSON Node names
 	private static final String TAG_JSON = "rows";
@@ -52,7 +52,7 @@ public class MainActivity extends ListActivity {
 			JSONParser jParser = new JSONParser();
 			Log.d("CXF", url);
 			// getting JSON string from URL
-			JSONObject json = jParser.getJSONFromUrl(url);
+			JSONObject json = jParser.getJSONFromUrl(url, null);
 			// Getting Array of Contacts
 			contacts = json.getJSONArray(TAG_JSON);
 

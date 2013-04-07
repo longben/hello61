@@ -33,7 +33,7 @@ public class JSONParser {
 
 	}
 
-	public JSONObject getJSONFromUrl(String url) {
+	public JSONObject getJSONFromUrl(String url, HttpPost httpPost) {
 			
 		// Making HTTP request
 		try {
@@ -46,9 +46,13 @@ public class JSONParser {
 			
 			//Log.d(TAG, "url is" + url);
 			
-			HttpPost httpPost = new HttpPost(url);
-			httpPost.addHeader("Content-Type",
-					"application/x-www-form-urlencoded; charset=\"UTF-8\"");
+			//HttpPost httpPost = new HttpPost(url);
+			
+			if(httpPost == null){
+				httpPost = new HttpPost(url);
+				httpPost.addHeader("Content-Type",
+						"application/x-www-form-urlencoded; charset=\"UTF-8\"");				
+			}
 
 			HttpResponse httpResponse = httpClient.execute(httpPost);
 			HttpEntity httpEntity = httpResponse.getEntity();

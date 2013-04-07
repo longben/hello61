@@ -1,6 +1,21 @@
 package com.bitbee.android.hello61;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bitbee.android.util.JSONParser;
@@ -18,6 +33,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -46,15 +62,19 @@ public class LoginActivity extends Activity {
 	private UserLoginTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
-	private String mEmail;
+	private String mUsername;
 	private String mPassword;
 
 	// UI references.
-	private EditText mEmailView;
+	private EditText mUsernameView;
 	private EditText mPasswordView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
+	
+	private Button bb;
+	
+	private String mInfo;
 	
 	private JSONArray info = null;
 
@@ -65,9 +85,9 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
-		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-		mEmailView = (EditText) findViewById(R.id.email);
-		mEmailView.setText(mEmail);
+		mUsername = getIntent().getStringExtra(EXTRA_EMAIL);
+		mUsernameView = (EditText) findViewById(R.id.username);
+		mUsernameView.setText(mUsername);
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
@@ -86,6 +106,11 @@ public class LoginActivity extends Activity {
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
+		bb = (Button)findViewById(R.id.sign_in_button);
+		
+	
+		
+		
 
 		findViewById(R.id.sign_in_button).setOnClickListener(
 				new View.OnClickListener() {
@@ -114,11 +139,11 @@ public class LoginActivity extends Activity {
 		}
 
 		// Reset errors.
-		mEmailView.setError(null);
+		mUsernameView.setError(null);
 		mPasswordView.setError(null);
 
 		// Store values at the time of the login attempt.
-		mEmail = mEmailView.getText().toString();
+		mUsername = mUsernameView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
 
 		boolean cancel = false;
@@ -136,13 +161,9 @@ public class LoginActivity extends Activity {
 		}
 
 		// Check for a valid email address.
-		if (TextUtils.isEmpty(mEmail)) {
-			mEmailView.setError(getString(R.string.error_field_required));
-			focusView = mEmailView;
-			cancel = true;
-		} else if (!mEmail.contains("@")) {
-			mEmailView.setError(getString(R.string.error_invalid_email));
-			focusView = mEmailView;
+		if (TextUtils.isEmpty(mUsername)) {
+			mUsernameView.setError(getString(R.string.error_field_required));
+			focusView = mUsernameView;
 			cancel = true;
 		}
 
@@ -212,24 +233,45 @@ public class LoginActivity extends Activity {
 
 			try {
 				// Simulate network access.
-				//Thread.sleep(2000);
-				// Creating JSON Parser instance
-				JSONParser jParser = new JSONParser();
-				// getting JSON string from URL
-				JSONObject json = jParser.getJSONFromUrl(url);
-				
-				info = json.getJSONArray("rows");
-				
-			} catch (Exception e) {
-				return false;
-			}
+				// Thread.sleep(2000);
+				String httpUrl = "http://www.wczhs.com/app/test";
 
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
+				HttpClient httpClient = new DefaultHttpClient();
+
+				HttpPost mPost = new HttpPost(httpUrl);
+				
+				JSONParser jParser = new JSONParser();
+
+				List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
+				pairs.add(new BasicNameValuePair("data[User][user_login]", mUsername));
+				pairs.add(new BasicNameValuePair("data[User][user_pass]", mPassword));
+
+				mPost.setEntity(new UrlEncodedFormEntity(pairs, HTTP.UTF_8));
+				
+				JSONObject json = jParser.getJSONFromUrl(url, mPost);
+				
+				try {
+					mInfo = json.getString("msg");
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+
+				//HttpResponse response = httpClient.execute(mPost);
+	
+					//mInfo = EntityUtils.toString(response.getEntity());
+					if (mInfo.equals("OK")) {
+						return true;
+					} else {
+						//mPasswordView.setError(mInfo);
+						return false;
+					}
+					// tv_rp.setText(str);
+		
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 			// TODO: register the new account here.
@@ -246,8 +288,10 @@ public class LoginActivity extends Activity {
 				startActivity(intent);
 				
 			} else {
-				mPasswordView.setError(getString(R.string.error_incorrect_password));
-				mPasswordView.requestFocus();
+				mUsernameView.setError(mInfo);
+				mPasswordView.setText("");
+				//mLoginStatusMessageView.setError(mInfo);
+				mUsernameView.requestFocus();
 			}
 		}
 
