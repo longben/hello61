@@ -284,7 +284,7 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
-				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+				Intent intent = new Intent(LoginActivity.this, BoardActivity.class);
 				startActivity(intent);
 				
 			} else {
