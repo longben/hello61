@@ -17,22 +17,21 @@ package com.bitbee.android.hello61;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import com.bitbee.android.util.JSONParser;
 
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.bitbee.android.util.JSONParser;
 
 public class HeadlinesFragment extends ListFragment {
     OnHeadlineSelectedListener mCallback;
@@ -47,7 +46,7 @@ public class HeadlinesFragment extends ListFragment {
 	private static final String TAG_COURSE = "course";
 	
 	// Hashmap for ListView
-	ArrayList<HashMap<String, String>> courseList = new ArrayList<HashMap<String, String>>();
+	ArrayList<String> courseList = new ArrayList<String>();
 
     // The container Activity must implement this interface so the frag can deliver messages
     public interface OnHeadlineSelectedListener {
@@ -66,7 +65,10 @@ public class HeadlinesFragment extends ListFragment {
         setCourseList();
      
        // Create an array adapter for the list view, using the Ipsum headlines array
-        setListAdapter(new ArrayAdapter<HashMap<String, String>>(getActivity(), layout, courseList));
+        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, courseList));
+      
+        
+        
     }
 
     @Override
@@ -128,17 +130,13 @@ public class HeadlinesFragment extends ListFragment {
 
 				JSONObject ce = c.getJSONObject("Course");
 				String course = ce.getString("name");
-
-				// creating new HashMap
-				HashMap<String, String> map = new HashMap<String, String>();
-
-				// adding each child node to HashMap key => value
-				map.put(TAG_ID, id);
-				map.put(TAG_COURSE, course + "[" + date_of_filing + "]");
-
+				
+				HashMap<String, String> item = new HashMap<String, String>();
+				item.put("ItemTitle", id);
+				item.put("ItemText", name);
 
 				// adding HashList to ArrayList
-				courseList.add(map);
+				courseList.add(date_of_filing);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

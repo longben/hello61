@@ -36,6 +36,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -288,6 +289,7 @@ public class LoginActivity extends Activity {
 				startActivity(intent);
 				
 			} else {
+				Toast.makeText(LoginActivity.this, mInfo, Toast.LENGTH_LONG).show();
 				mUsernameView.setError(mInfo);
 				mPasswordView.setText("");
 				//mLoginStatusMessageView.setError(mInfo);
