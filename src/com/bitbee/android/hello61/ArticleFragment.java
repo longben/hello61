@@ -15,8 +15,14 @@
  */
 package com.bitbee.android.hello61;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.bitbee.android.util.JSONParser;
+
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +31,8 @@ import android.widget.TextView;
 public class ArticleFragment extends Fragment {
     final static String ARG_POSITION = "position";
     int mCurrentPosition = -1;
+    
+    private static String url = "http://www.wczhs.com/app/files/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, 
@@ -61,7 +69,16 @@ public class ArticleFragment extends Fragment {
 
     public void updateArticleView(int position) {
         TextView article = (TextView) getActivity().findViewById(R.id.article);
-        article.setText(Ipsum.Articles[position]);
+        
+		JSONParser jParser = new JSONParser();
+		JSONObject json = jParser.getJSONFromUrl(url + "454.json", null);
+		
+        try {
+			article.setText(json.getJSONObject("c").getJSONObject("CourseMembership").toString());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         mCurrentPosition = position;
     }
 
