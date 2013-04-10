@@ -37,6 +37,24 @@
             android:name="com.bitbee.android.hello61.BoardActivity"
             android:label="@string/title_activity_board" >
         </activity>
+        <activity
+            android:name="com.bitbee.android.hello61.CourseActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_course"
+            android:parentActivityName="com.bitbee.android.hello61.MainActivity"
+            android:theme="@style/FullscreenTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bitbee.android.hello61.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.bitbee.android.hello61.CourseDetailActivity"
+            android:label="@string/title_activity_course_detail"
+            android:parentActivityName="com.bitbee.android.hello61.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bitbee.android.hello61.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

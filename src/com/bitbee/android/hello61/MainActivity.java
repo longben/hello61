@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.bitbee.android.util.JSONParser;
 
@@ -80,7 +81,7 @@ public class MainActivity extends ListActivity {
 				HashMap<String, String> map = new HashMap<String, String>();
 				
 				// adding each child node to HashMap key => value
-				//map.put(TAG_ID, id);
+				map.put(TAG_ID, id);
 				map.put(TAG_COURSE, course);
 				//map.put(TAG_PATRIARCH, patriarch);
 				map.put(TAG_DATE_OF_FILING, date_of_filing);
@@ -98,7 +99,7 @@ public class MainActivity extends ListActivity {
 		 * */
 		ListAdapter adapter = new SimpleAdapter(this, contactList,
 				R.layout.course_list,
-				new String[] { TAG_COURSE, TAG_DATE_OF_FILING }, new int[] {R.id.course, R.id.date_of_filing } );
+				new String[] {TAG_ID, TAG_COURSE, TAG_DATE_OF_FILING }, new int[] {R.id.id, R.id.course, R.id.date_of_filing } );
 
 		setListAdapter(adapter);
 		
@@ -118,13 +119,17 @@ public class MainActivity extends ListActivity {
 				String cost = ((TextView) view.findViewById(R.id.email)).getText().toString();
 				String description = ((TextView) view.findViewById(R.id.mobile)).getText().toString();
 				*/
+				
+				
+				String course_id = ((TextView) view.findViewById(R.id.id)).getText().toString();
+				
 				// Starting new intent
-				Intent in = new Intent(getApplicationContext(), SingleMenuItemActivity.class);
+				Intent in = new Intent(getApplicationContext(), CourseDetailActivity.class);
 				//in.putStringArrayListExtra("test", )
 				//in.putExtra(TAG_NAME, name);
 				//in.putExtra(TAG_EMAIL, cost);
 				//in.putExtra(TAG_PHONE_MOBILE, description);
-				in.putExtra("id", id);
+				in.putExtra("id", course_id);
 				startActivity(in);
 
 			}
