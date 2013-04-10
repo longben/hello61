@@ -40,7 +40,7 @@ public class MainActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.activity_main);
+		//setContentView(R.layout.course_list);
 		
 		// Hashmap for ListView
 		ArrayList<HashMap<String, String>> contactList = new ArrayList<HashMap<String, String>>();
@@ -80,9 +80,9 @@ public class MainActivity extends ListActivity {
 				HashMap<String, String> map = new HashMap<String, String>();
 				
 				// adding each child node to HashMap key => value
-				map.put(TAG_ID, id);
+				//map.put(TAG_ID, id);
 				map.put(TAG_COURSE, course);
-				map.put(TAG_PATRIARCH, patriarch);
+				//map.put(TAG_PATRIARCH, patriarch);
 				map.put(TAG_DATE_OF_FILING, date_of_filing);
 
 				// adding HashList to ArrayList
@@ -97,8 +97,8 @@ public class MainActivity extends ListActivity {
 		 * Updating parsed JSON data into ListView
 		 * */
 		ListAdapter adapter = new SimpleAdapter(this, contactList,
-				R.layout.list_item,
-				new String[] { TAG_COURSE, TAG_PATRIARCH, TAG_DATE_OF_FILING }, new int[] {R.id.course, R.id.patriarch, R.id.date_of_filing } );
+				R.layout.course_list,
+				new String[] { TAG_COURSE, TAG_DATE_OF_FILING }, new int[] {R.id.course, R.id.date_of_filing } );
 
 		setListAdapter(adapter);
 		
