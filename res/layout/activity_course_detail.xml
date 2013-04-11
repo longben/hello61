@@ -1,19 +1,194 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".CourseDetailActivity" >
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/article"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:textSize="18sp" />
-    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-</RelativeLayout>
+        <!-- 课程 Label -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textColor="#33B5E5"
+                android:textSize="18sp" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/date_of_filing"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textColor="#99CC00"
+                android:textSize="18sp" >
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#33B5E5" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@id/android:empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:divider="#33B5E5"
+                android:gravity="right"
+                android:text="宝宝今天上课对哪项活动最感兴趣"
+                android:textColor="#AA66CC"
+                android:textSize="16sp" >
+            </TextView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#33B5E5" />
+
+            <TextView
+                android:id="@+id/interest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="18sp" >
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@id/android:empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:divider="#33B5E5"
+                android:gravity="right"
+                android:text="宝宝今天上课什么地方不一样"
+                android:textColor="#AA66CC"
+                android:textSize="16sp" >
+            </TextView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#33B5E5" />
+
+            <TextView
+                android:id="@+id/different"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="18sp" >
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@id/android:empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:divider="#33B5E5"
+                android:gravity="right"
+                android:text="宝宝今天让你印象最深刻的是"
+                android:textColor="#AA66CC"
+                android:textSize="16sp" >
+            </TextView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#33B5E5" />
+
+            <TextView
+                android:id="@+id/impression"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="18sp" >
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@id/android:empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:divider="#33B5E5"
+                android:gravity="right"
+                android:text="您的意见和建议"
+                android:textColor="#AA66CC"
+                android:textSize="16sp" >
+            </TextView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#33B5E5" />
+
+            <TextView
+                android:id="@+id/suggest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="18sp" >
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@id/android:empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:divider="#33B5E5"
+                android:gravity="right"
+                android:text="宝宝在活动中的具体表现"
+                android:textColor="#AA66CC"
+                android:textSize="16sp" >
+            </TextView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#33B5E5" />
+
+            <TextView
+                android:id="@+id/expression"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="18sp" >
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -27,29 +27,47 @@ public class CourseDetailActivity extends Activity {
 
 		//
 		
-		setView();
+		//setView();
 		
 		
 		
-		/*
+		
 		setContentView(R.layout.activity_course_detail);
 		Bundle bunde = this.getIntent().getExtras();
 		
-        TextView article = (TextView) findViewById(R.id.article);
+        TextView course = (TextView) findViewById(R.id.course);
+        TextView date_of_filing = (TextView) findViewById(R.id.date_of_filing);
+		
+        TextView interest = (TextView) findViewById(R.id.interest);
+        TextView different = (TextView) findViewById(R.id.different);
+        TextView impression = (TextView) findViewById(R.id.impression);
+        TextView suggest = (TextView) findViewById(R.id.suggest);
+        TextView expression = (TextView) findViewById(R.id.expression);
+        
         
 		JSONParser jParser = new JSONParser();
 		
 		//Log.d("CXF", String.valueOf(bunde.getLong("id")));
 
 		JSONObject json = jParser.getJSONFromUrl(url + bunde.getString("id")  +".json", null);
+		JSONObject cp = null;
 		
         try {
-			article.setText(json.getJSONObject("c").getJSONObject("CourseMembership").toString());
+        	cp = json.getJSONObject("c").getJSONObject("CourseMembership");
+        	interest.setText(cp.getString("interest"));
+        	different.setText(cp.getString("different"));
+        	impression.setText(cp.getString("impression"));
+        	suggest.setText(cp.getString("suggest"));
+        	expression.setText(cp.getString("expression"));
+        	
+        	course.setText(bunde.getString("course"));
+        	date_of_filing.setText(cp.getString("date_of_filing"));
+        	
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
+		
 		
 		// Show the Up button in the action bar.
 		setupActionBar();
@@ -108,35 +126,35 @@ public class CourseDetailActivity extends Activity {
         	
     		label = new TextView(this);
     		content = new TextView(this);
-    		label.setText("宝宝今天上课对哪项活动最感兴趣：");
+    		label.setText("瀹濆疂浠婂ぉ涓婅瀵瑰摢椤规椿鍔ㄦ渶鎰熷叴瓒ｏ細");
     		content.setText (cp.getString("interest"));
     		ll.addView(label, layoutParams);
     		ll.addView(content, layoutParams);
     		
     		label = new TextView(this);
     		content = new TextView(this);
-    		label.setText("宝宝今天上课什么地方不一样：");
+    		label.setText("瀹濆疂浠婂ぉ涓婅浠�箞鍦版柟涓嶄竴鏍凤細");
     		content.setText (cp.getString("different"));
     		ll.addView(label, layoutParams);
     		ll.addView(content, layoutParams); 
     		
     		label = new TextView(this);
     		content = new TextView(this);
-    		label.setText("宝宝今天让你印象最深刻的是：");
+    		label.setText("瀹濆疂浠婂ぉ璁╀綘鍗拌薄鏈�繁鍒荤殑鏄細");
     		content.setText (cp.getString("impression"));
     		ll.addView(label, layoutParams);
     		ll.addView(content, layoutParams); 
     		
     		label = new TextView(this);
     		content = new TextView(this);
-    		label.setText("您的意见和建议：");
+    		label.setText("鎮ㄧ殑鎰忚鍜屽缓璁細");
     		content.setText (cp.getString("suggest"));
     		ll.addView(label, layoutParams);
     		ll.addView(content, layoutParams);   
     		
     		label = new TextView(this);
     		content = new TextView(this);
-    		label.setText("宝宝在活动中的具体表现：");
+    		label.setText("瀹濆疂鍦ㄦ椿鍔ㄤ腑鐨勫叿浣撹〃鐜帮細");
     		content.setText (cp.getString("expression"));
     		ll.addView(label, layoutParams);
     		ll.addView(content, layoutParams);       		

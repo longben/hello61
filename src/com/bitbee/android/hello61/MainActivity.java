@@ -122,6 +122,7 @@ public class MainActivity extends ListActivity {
 				
 				
 				String course_id = ((TextView) view.findViewById(R.id.id)).getText().toString();
+				String course = ((TextView) view.findViewById(R.id.course)).getText().toString();
 				
 				// Starting new intent
 				Intent in = new Intent(getApplicationContext(), CourseDetailActivity.class);
@@ -130,6 +131,7 @@ public class MainActivity extends ListActivity {
 				//in.putExtra(TAG_EMAIL, cost);
 				//in.putExtra(TAG_PHONE_MOBILE, description);
 				in.putExtra("id", course_id);
+				in.putExtra("course", course);
 				startActivity(in);
 
 			}
