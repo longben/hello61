@@ -76,6 +76,7 @@ public class LoginActivity extends Activity {
 	private Button bb;
 	
 	private String mInfo;
+	private String user_id;
 	
 	private JSONArray info = null;
 
@@ -253,6 +254,7 @@ public class LoginActivity extends Activity {
 				
 				try {
 					mInfo = json.getString("msg");
+					user_id = json.getString("user_id");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -287,6 +289,7 @@ public class LoginActivity extends Activity {
 			if (success) {
 				//Intent intent = new Intent(LoginActivity.this, BoardActivity.class);
 				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+				intent.putExtra("user_id", user_id);
 				startActivity(intent);
 				
 			} else {
