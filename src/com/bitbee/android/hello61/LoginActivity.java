@@ -4,27 +4,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.bitbee.android.util.JSONParser;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,23 +27,17 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bitbee.android.util.JSONParser;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
 public class LoginActivity extends Activity {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
-	
 	private static String url = "http://www.wczhs.com/wczhs/json_data.json";
 
 	/**
@@ -73,23 +61,23 @@ public class LoginActivity extends Activity {
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 	
-	private Button bb;
 	
 	private String mInfo;
 	private String user_id;
 	
-	private JSONArray info = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
+		
+		SharedPreferences userInfo = getSharedPreferences("user_info", 0); 
 
 		// Set up the login form.
 		mUsername = getIntent().getStringExtra(EXTRA_EMAIL);
 		mUsernameView = (EditText) findViewById(R.id.username);
-		mUsernameView.setText(mUsername);
+		mUsernameView.setText(userInfo.getString("name", ""));
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
@@ -108,9 +96,6 @@ public class LoginActivity extends Activity {
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
-		bb = (Button)findViewById(R.id.sign_in_button);
-		
-	
 		
 		
 
@@ -238,8 +223,6 @@ public class LoginActivity extends Activity {
 				// Thread.sleep(2000);
 				String httpUrl = "http://www.wczhs.com/app/test";
 
-				HttpClient httpClient = new DefaultHttpClient();
-
 				HttpPost mPost = new HttpPost(httpUrl);
 				
 				JSONParser jParser = new JSONParser();
@@ -249,6 +232,9 @@ public class LoginActivity extends Activity {
 				pairs.add(new BasicNameValuePair("data[User][user_pass]", mPassword));
 
 				mPost.setEntity(new UrlEncodedFormEntity(pairs, HTTP.UTF_8));
+				
+				SharedPreferences userInfo = getSharedPreferences("user_info", 0);
+				userInfo.edit().putString("name", mUsername).commit();
 				
 				JSONObject json = jParser.getJSONFromUrl(url, mPost);
 				
